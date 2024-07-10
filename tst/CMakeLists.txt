@@ -25,7 +25,7 @@ target_link_libraries(
     GTest::gtest_main
 )
 
-add_test(NAME format_tests COMMAND ${TEST_BINARY})
+# add_test(NAME monitor_tests COMMAND ${TEST_BINARY})
 
 include(GoogleTest)
 gtest_discover_tests(${TEST_BINARY})

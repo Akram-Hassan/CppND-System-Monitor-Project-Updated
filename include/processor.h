@@ -1,12 +1,15 @@
 #ifndef PROCESSOR_H
 #define PROCESSOR_H
 
+#include "cpu_data.h"
+
 class Processor {
  public:
-  float Utilization();  // TODO: See src/processor.cpp
+    Processor();
+    float Utilization();  // TODO: See src/processor.cpp
 
-  // TODO: Declare any necessary private members
  private:
+    CpuData cpuData_;
 };
 
 #endif
