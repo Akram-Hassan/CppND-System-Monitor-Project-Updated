@@ -16,6 +16,14 @@ using std::size_t;
 using std::string;
 using std::vector;
 
+System::System()
+{
+    auto pids = LinuxParser::Pids();
+    for(auto pid: pids)
+    {
+        processes_.push_back(Process{pid});
+    }
+}
 // TODO: Return the system's CPU
 Processor& System::Cpu() { return cpu_; }
 
@@ -35,7 +43,7 @@ std::string System::OperatingSystem() { return LinuxParser::OperatingSystem(); }
 int System::RunningProcesses() { return 0; }
 
 // TODO: Return the total number of processes on the system
-int System::TotalProcesses() { return 0; }
+int System::TotalProcesses() { return processes_.size(); }
 
 // Done: Return the number of seconds since the system started running
 long int System::UpTime() { return LinuxParser::UpTime(); }
