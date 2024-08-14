@@ -6,6 +6,7 @@
 
 #include "process.h"
 #include "processor.h"
+#include "linux_parser.h"
 
 class System {
  public:
@@ -22,7 +23,8 @@ class System {
 // TODO: Define any necessary private members
 private:
   Processor cpu_ = {};
-  std::vector<Process> processes_ = {};
+  std::vector<Process> processes_ {};
+  LinuxParser::LinuxParser linuxParser_ {}; 
 };
 
 #endif

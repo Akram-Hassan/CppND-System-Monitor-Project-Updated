@@ -10,6 +10,12 @@
 #include "cpu_data.h"
 
 
+std::vector<int> GetCpuData()
+{
+    LinuxParser::LinuxParser parser{};
+    return parser.CpuData();
+}
+
 TEST(ProcessorTests, ReadProcessorData) {
     std::ifstream file{"/proc/stat"};
     std::string expectedLine{};
@@ -18,7 +24,7 @@ TEST(ProcessorTests, ReadProcessorData) {
 
     std::cout << expectedLine << "\n";
 
-    std::vector<int> cpuData = LinuxParser::CpuData();
+    std::vector<int> cpuData = GetCpuData();
     std::string readLine{"cpu  "};
     for(auto& value: cpuData)
     {
@@ -67,19 +73,19 @@ TEST(ProcessorTests, TestCalculateTotal) {
 
 TEST(ProcessorTests, TestCalculateUtilizationInitial) {
     Processor processor{};
-    auto cpuData = CpuData(LinuxParser::CpuData());
+    auto cpuData = CpuData(GetCpuData());
 
     auto expected_utilization = static_cast<float>((cpuData.Total()- cpuData.Idle())) / cpuData.Total();
     EXPECT_FLOAT_EQ(expected_utilization,  processor.Utilization());
 }
 
 TEST(ProcessorTests, TestCalculateUtilization) {
-    auto cpuDataBefore = CpuData(LinuxParser::CpuData());
+    auto cpuDataBefore = CpuData(GetCpuData());
     Processor processor;
 
     sleep(3);
 
-    auto cpuDataAfter = CpuData(LinuxParser::CpuData());
+    auto cpuDataAfter = CpuData(GetCpuData());
 
     int totald = cpuDataAfter.Total() - cpuDataBefore.Total();
     int idled = cpuDataAfter.Idle() - cpuDataBefore.Idle();
